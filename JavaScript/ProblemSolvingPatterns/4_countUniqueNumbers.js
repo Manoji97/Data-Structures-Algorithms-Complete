@@ -1,16 +1,26 @@
 /*
 
-Find 1st 2 elements in an SORTED array which will return 0 on addition.
+    Find Number of Unique numbers in an SORTED Array  
 
-    Example 1   =>  [-3,-2,-1,0,1,2,3]   =>  [-3,3]
+    Example 1   =>  [1, 1, 1, 1, 4,5,6]   =>  4
 
-    Exapmle 2   =>  [-4,-2,0,1,7]   => undefined
+    Exapmle 2   =>  [3,4,4,6,6,7]   => 5
 
 
-    Time Complexity for the naive method is O(n^2), and For Best Provided Solution is O(n)
+    Time Complexity  Provided Solution is O(n)
 */
 
-const CountUniqueNumber = (arr) => {};
+const CountUniqueNumber = (arr) => {
+  if (arr.length === 0) return 0;
+  let i = 0;
+  for (let j = 1; j < arr.length; j++) {
+    if (arr[i] !== arr[j]) {
+      i++;
+      arr[i] = arr[j];
+    }
+  }
+  return i + 1;
+};
 
-let array = [];
-console.log(CountUniqueNumber(arr));
+let array = [3, 4, 4, 6, 6, 7];
+console.log(CountUniqueNumber(array));
