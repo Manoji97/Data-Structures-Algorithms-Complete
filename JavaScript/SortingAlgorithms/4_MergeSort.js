@@ -15,7 +15,7 @@ Assumes that an Array with 0 or 1 element is always sorted, so we split up teh a
 
 
 ===> MergeSort Pseudo Code
-    =>  Use Regression to split the Array to make it have only one element
+    =>  Use Recursion to split the Array to make it have only one element
     =>  Base condition is if array len is 1 return arr
     =>  then merge left and right recursively
 
