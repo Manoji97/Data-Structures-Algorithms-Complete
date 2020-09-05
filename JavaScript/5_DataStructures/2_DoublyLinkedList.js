@@ -2,92 +2,101 @@ class Node {
   constructor(val) {
     this.val = val;
     this.next = null;
+    this.prev = null;
   }
 }
 
-class SingleLinkedList {
+class DoublyLinkedList {
   constructor() {
     this.head = null;
     this.tail = null;
     this.length = 0;
   }
+
   printAll() {
-    // Just For Seeing , not Efficient
-    if (!this.head) return -1;
-    let node = this.head;
     let output = [];
+    if (!this.head) return false;
+    let node = this.head;
     while (node) {
       output.push(node.val);
       node = node.next;
     }
     return output;
   }
+
   push(val) {
-    //Append new val to the end of the list
     const new_node = new Node(val);
     if (!this.head) {
       this.head = new_node;
       this.tail = new_node;
     } else {
       this.tail.next = new_node;
+      new_node.prev = this.tail;
       this.tail = new_node;
     }
     this.length++;
     return true;
   }
+
   pop() {
-    //pop the last value of the list
     if (!this.head) return false;
+    let oldTail = this.tail;
     if (this.length === 1) {
-      let node = this.head;
       this.head = null;
       this.tail = null;
       this.length = 0;
-      return node.val;
+      return oldTail;
     }
-    let node = this.head;
-    let previousNode = node;
-    while (node !== this.tail) {
-      previousNode = node;
-      node = node.next;
-    }
-    previousNode.next = null;
-    this.tail = previousNode;
+    this.tail = oldTail.prev;
+    this.tail.next = null;
+    oldTail.prev = null;
     this.length--;
-    return node.val;
+    return oldTail;
   }
 
   shift(val) {
-    //add new element to the Starting of the list
     const new_node = new Node(val);
-    if (!this.head) this.push(val);
-    else {
-      let oldHead = this.head;
-      new_node.next = oldHead;
+    if (!this.head) {
       this.head = new_node;
-      this.length++;
-      return true;
+      this.tail = new_node;
+    } else {
+      this.head.prev = new_node;
+      new_node.next = this.head;
+      this.head = new_node;
     }
+    this.length++;
+    return true;
   }
 
   unShift() {
-    //Removes the 1st element from the list
-    if (this.length < 1) this.pop();
-    else {
-      let oldHead = this.head;
-      this.head = oldHead.next;
-      oldHead.next = null;
-      this.length--;
-      return oldHead;
+    if (!this.head) return false;
+    if (this.length === 1) {
+      this.head = null;
+      this.tail = null;
+      this.length = 0;
+      return;
     }
+    let oldHead = this.head;
+    this.head = this.head.next;
+    this.head.prev = null;
+    oldHead.next = null;
+    this.length--;
+    return oldHead;
   }
 
   get(index) {
-    //Get the Node at Index "index"
     if (index < 0 || index >= this.length) return false;
-    let node = this.head;
-    for (let i = 1; i <= index; i++) {
-      node = node.next;
+    let node;
+    if (index <= this.length / 2) {
+      node = this.head;
+      for (let i = 1; i <= index; i++) {
+        node = node.next;
+      }
+    } else {
+      node = this.tail;
+      for (let i = this.length - 2; i >= index; i--) {
+        node = node.prev;
+      }
     }
     return node;
   }
@@ -106,9 +115,11 @@ class SingleLinkedList {
     if (index === 0) return this.shift(val);
     if (index === this.length) return this.push(val);
     const new_node = new Node(val);
-    let connectNode = this.get(index - 1);
-    new_node.next = connectNode.next;
-    connectNode.next = new_node;
+    let prevNode = this.get(index - 1);
+    new_node.next = prevNode.next;
+    prevNode.next.prev = new_node;
+    prevNode.next = new_node;
+    new_node.prev = prevNode;
     this.length++;
     return true;
   }
@@ -117,26 +128,27 @@ class SingleLinkedList {
     if (index < 0 || index >= this.length) return false;
     if (index === 0) return this.unShift();
     if (index === this.length - 1) return !!this.pop();
-    let removeNodeParent = this.get(index - 1);
-    removeNodeParent.next = removeNodeParent.next.next;
+    let removeNode = this.get(index);
+    removeNode.prev.next = removeNode.next;
+    removeNode.next.prev = removeNode.prev;
+    removeNode.next = null;
+    removeNode.prev = null;
     this.length--;
     return true;
   }
+
   reverse() {
     if (!this.head) return false;
     let node = this.head;
     this.head = this.tail;
     this.tail = node;
-    let next;
-    let prev = null;
     for (let i = 0; i < this.length; i++) {
-      next = node.next;
-      node.next = prev;
-      prev = node;
-      node = next;
+      let next_node = node.next;
+      [node.next, node.prev] = [node.prev, node.next];
+      node = next_node;
     }
-    return this;
+    return true;
   }
 }
 
-let l = new SingleLinkedList();
+let d = new DoublyLinkedList();
