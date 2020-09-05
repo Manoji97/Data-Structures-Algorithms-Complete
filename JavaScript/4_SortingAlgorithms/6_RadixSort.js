@@ -1,7 +1,7 @@
 /*
 
-Time Complexity => O(n log(n)) worst case O(n^2) if all teh pivots choosed are minimum
-Space Complexity => O(log n)
+Time Complexity => O(kn)  k => maxdigits and n => number of elems in array
+Space Complexity => O(n+k)
 
 Radix Sort is a fun Sorting Algorithm
 
