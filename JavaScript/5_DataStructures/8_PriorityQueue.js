@@ -74,3 +74,12 @@ class PriorityQueue {
 }
 
 let PQ = new PriorityQueue();
+
+/*
+Priority Queue is same like Binary Heap.
+
+but its Minimum Binary Heap with respect priority => 1 = high priority, 5 = less priority
+
+Time Complexity => O(1) getting
+                => O(log n) enqueing 
+*/
