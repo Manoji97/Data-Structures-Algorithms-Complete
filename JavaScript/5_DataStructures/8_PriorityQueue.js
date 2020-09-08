@@ -69,7 +69,7 @@ class PriorityQueue {
       leftIndex = 2 * parentIndex + 1;
       rightIndex = 2 * parentIndex + 2;
     }
-    return maxPriority;
+    return maxPriority || false;
   }
 }
 
