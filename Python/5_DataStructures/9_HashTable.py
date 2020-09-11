@@ -1,6 +1,6 @@
 class HashTable(object):
 	def __init__(self):
-		self.array = [0 * 10]
+		self.array = [0] * 10
 
 	def hashFunction(self, key):
 		return hash(key) % 10  # hash function only in python, not in JS
