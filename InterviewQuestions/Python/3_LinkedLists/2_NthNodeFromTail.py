@@ -7,6 +7,12 @@ class Node(object):
 		self.val = val
 		self.next = None
 
+	def __repr__(self):
+		return str(self.val)
+
+	def __str__(self):
+		return str(self.val)
+
 
 
 class LinkedList(object):
@@ -151,18 +157,23 @@ class LinkedList(object):
 
 		return
 
-	def cycleCheck(self):
-		if not self.head: return 
+	def getNthNode(self, n):
+		if not self.head: return -1
+		if n > self.length: return -1
+
 		slow = self.head
 		fast = self.head
 
-		while fast != None and fast.next != None:
-			slow = slow.next
-			fast = fast.next.next
+		for i in range(n):
+			fast = fast.next
 
-			if slow.val == fast.val:
-				return True
-		return False
+		while fast:
+			slow = slow.next
+			fast = fast.next
+
+		return slow
+
+
 
 			
 
