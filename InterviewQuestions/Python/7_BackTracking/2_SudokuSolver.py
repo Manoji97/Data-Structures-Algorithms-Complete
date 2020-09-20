@@ -148,7 +148,7 @@ all_emt = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
 			[0, 0, 0, 0, 0, 0, 0, 0, 9]]
 
 
-sudokuSolver = Sudoku(all_emt)
+sudokuSolver = Sudoku(_sudoku)
 
 sudokuSolver.printBoard()
 
