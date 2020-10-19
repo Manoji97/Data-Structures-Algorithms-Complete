@@ -3,7 +3,6 @@ Anagram is Two Strings with extact Letters
 
 
 Time Complexity is O(n)
-
 '''
 
 def CheckAnagram(str1, str2):
